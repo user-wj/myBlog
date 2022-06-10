@@ -46,8 +46,24 @@
 在当前项目中打开 git bash 的命令
 执行如下的步骤
 git init 
-git add -A  所有的文件
-git commit -m"initial project"
+git add -A             所有的文件
+git commit -m"1.initial project"          => git config --global user.email "自己的郵箱"
+                                          => git config --global user.name "用戶名"
 git remote add origin https://github.com/user-wj/myBlog.git
+                如何生成自己的token
+                1、在个人设置页面，找到Setting（参考）
+
+                2、选择开发者设置Developer setting
+
+                3、选择个人访问令牌Personal access tokens，然后选中生成令牌Generate new token
+
+                4、设置token的有效期，访问权限等
+
+                选择要授予此令牌token的范围或权限。
+                生成的token 需要複製下來 第二次你就看不見他了
+                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
 git branch -M main
-git push -u origin main`
+git push -u origin main => 輸入用戶名 密碼
+
+
+`
