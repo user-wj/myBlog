@@ -1,0 +1,101 @@
+#!/usr/bin/env node
+
+/**
+ * Module dependencies.
+ */
+
+var app = require('../app'); // 函数嵌套函数
+// 设置的环境变量一定要和这个 require("debug")("myblog:server") => 这个 myblog:* 才能进行输出
+var debug = require('debug')('myblog:server'); 
+// 日志没有生效:debug log 模块 重新设置:set DEBUG= myblog:* & npm start 的模式才能输出 日志
+// npm start 是保证环境变量写入到 express 
+var http = require('http'); //  创建 http服务
+
+/**
+ * Get port from environment and store in Express.
+ * 从环境变量中取 端口 和 保存在 express 中
+ * node:
+ *      console.log(process.env["DEBUG"])
+ * 设置环境变量的话:
+ *              在命令行窗口: set PORT=4000  这个环境变量PORT=4000 在node进程中获取 process.env.PORT => 4000
+ * npm strat  会开启日志
+ *  myblog:server Listening on port 4000 [set PORT=4000|3000] +0ms
+ */
+// set PORT=4000|3000
+var port = normalizePort(process.env.PORT || '3000'); // 设置默认的端口为 3000如果设置环境变量 set PORT=5000 的话会开启在5000端口
+// 拿到环境变量里面的端口 保存到 express 中
+app.set('port', port);
+
+/**
+ * Create HTTP server.
+ */
+// 创建服务器 请求到来的时候自动调取 并且传递两个参数给 app 这个函数
+var server = http.createServer(app);
+
+/**
+ * Listen on provided port, on all network interfaces.
+ */
+
+server.listen(port);
+server.on('error', onError); // 当服务器出现错误的时候调用
+server.on('listening', onListening); // 但服务器成功监听端口的时候调用
+
+/**
+ * Normalize a port into a number, string, or false.
+ */
+
+function normalizePort(val) {
+  var port = parseInt(val, 10); // 10 进制 
+
+  if (isNaN(port)) {
+    // named pipe
+    return val;
+  }
+
+  if (port >= 0) {
+    // port number
+    return port;
+  }
+
+  return false;
+}
+
+/**
+ * Event listener for HTTP server "error" event.
+ */
+
+function onError(error) {
+  if (error.syscall !== 'listen') {
+    throw error;
+  }
+
+  var bind = typeof port === 'string'
+    ? 'Pipe ' + port
+    : 'Port ' + port;
+
+  // handle specific listen errors with friendly messages
+  switch (error.code) {
+    case 'EACCES':
+      console.error(bind + ' requires elevated privileges');
+      process.exit(1);
+      break;
+    case 'EADDRINUSE':
+      console.error(bind + ' is already in use');
+      process.exit(1);
+      break;
+    default:
+      throw error;
+  }
+}
+
+/**
+ * Event listener for HTTP server "listening" event.
+ */
+
+function onListening() {
+  var addr = server.address();
+  var bind = typeof addr === 'string'
+    ? 'pipe ' + addr
+    : 'port ' + addr.port;
+  debug('Listening on ' + bind);
+}
