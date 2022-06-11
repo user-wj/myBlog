@@ -49,6 +49,16 @@ git init
 git add -A             所有的文件
 git commit -m"1.initial project"          => git config --global user.email "自己的郵箱"
                                           => git config --global user.name "用戶名"
+                                          去除全局的配置
+                                          git config --global --unset [key] 就是刪除=value 
+                                          查看全局配置文件
+                                          git config --global -l 
+                                          设置代理
+                                          git config --global http.proxy  http://127.0.0.1:1080
+                                          git config --global https.proxy  http://127.0.0.1:1080
+                                          git config --global --unset http.proxy
+                                          git config --global --unset https.proxy
+
 git remote add origin https://github.com/user-wj/myBlog.git
                 如何生成自己的token
                 1、在个人设置页面，找到Setting（参考）
@@ -64,6 +74,7 @@ git remote add origin https://github.com/user-wj/myBlog.git
                 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
 git branch -M main
 git push -u origin main => 輸入用戶名 密碼
+
 
 
 `
