@@ -67,14 +67,14 @@ git remote add origin https://github.com/user-wj/myBlog.git
 
                 3、选择个人访问令牌Personal access tokens，然后选中生成令牌Generate new token
 
-                4、设置token的有效期，访问权限等
+                4、设置token的有效期，访问权限等  访问的权限一定要选中 repo 表示生成的token全部的权限都拥有
 
                 选择要授予此令牌token的范围或权限。
+                
                 生成的token 需要複製下來 第二次你就看不見他了
-                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
+
+                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
 git branch -M main
 git push -u origin main => 輸入用戶名 密碼
-
-
 
 `

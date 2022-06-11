@@ -11,6 +11,8 @@ var logger = require('morgan');// 日志
 */
 var indexRouter = require('./routes/index'); // 根路由
 var usersRouter = require('./routes/users'); // 用户路由
+var userArticles = require("./routes/articles")
+
 
 var app = express();
 
@@ -32,7 +34,11 @@ app.use(express.static(path.join(__dirname, 'public'))); // 静态文件目录 [
 
 // 路由的分发
 app.use('/', indexRouter);
+// 用户注册 登录
 app.use('/users', usersRouter);
+// 用户 增加文章页面 
+app.use("/articles", userArticles);
+// 这里还需要处理 /favicon.ico 的请求
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
