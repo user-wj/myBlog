@@ -94,4 +94,48 @@ git push -u origin main => 輸入用戶名 密碼
 npm install bootstrap@4.6.1 --save
 npm install jquery@3.5.1 --save
 `
+# 引入 css js 到public 下面的 stylesheets  和 javascripts 目录下面
+`
+    public->
+            javascripts
+                        -> jquery.js
+            stylesheets 
+                        -> bootstrap.css
+`
+# index.html 页面引入 css /stylesheets/bootsrap.css 
 
+# bootstrap 
+`
+    进入bootstrap官网
+    文档
+    进入组建 => 找到导航条
+`
+
+# 通过bootstrap进行页面的布局
+`
+    主页
+    登录
+    注册
+    发表文章
+    退出
+`
+
+# 制作ico的图标
+`
+    https://www.bitbug.net/
+`
+
+# 图标加载到网站里面
+`
+    可以直接发到 public目录下面 但是文件名一定要 favicon.ico
+`
+# bootstarp依赖jquery
+`
+    在页面按照顺序引入一下文件:
+            <!-- jquery -->
+            <script type="text/javascript" charset="utf-8" src="/javascripts/jquery.js"></script>
+            <!-- bootstrap  -->
+            <script type="text/javascript" charset="utf-8" src="/javascripts/bootstrap.js"></script>
+`
+
+# 
