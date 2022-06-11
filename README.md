@@ -88,7 +88,10 @@ git push -u origin main => 輸入用戶名 密碼
     
     1.bower init 
     2.添加 .bowerrc 文件 => { "directory":"./public/lib" }  把第三方项目依赖放在 public/lib 目录下面
-
-    xxxxxxxxxxxxx
+`
+# 不使用bower来创建项目
+`
+npm install bootstrap@4.6.1 --save
+npm install jquery@3.5.1 --save
 `
 
