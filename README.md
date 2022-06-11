@@ -38,21 +38,21 @@
     .ideal
     .log
 
-` 
+`
 
 # 创建文件之后执行命令
 
 `
 在当前项目中打开 git bash 的命令
 执行如下的步骤
-git init 
+git init
 git add -A             所有的文件
 git commit -m"1.initial project"          => git config --global user.email "自己的郵箱"
                                           => git config --global user.name "用戶名"
                                           去除全局的配置
-                                          git config --global --unset [key] 就是刪除=value 
+                                          git config --global --unset [key] 就是刪除=value
                                           查看全局配置文件
-                                          git config --global -l 
+                                          git config --global -l
                                           设置代理
                                           git config --global http.proxy  http://127.0.0.1:1080
                                           git config --global https.proxy  http://127.0.0.1:1080
@@ -73,8 +73,22 @@ git remote add origin https://github.com/user-wj/myBlog.git
                 
                 生成的token 需要複製下來 第二次你就看不見他了
 
-                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
+                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[xx]
 git branch -M main
 git push -u origin main => 輸入用戶名 密碼
-
 `
+
+# 前端管理工具
+`
+    npm install bower -g
+    在[当前的项目目录]下面执行: bower init | npm init -y
+    npm install bootstrap --save -S生产依赖| -D开发依赖
+
+    bower 命令是自动管理版本的工具
+    
+    1.bower init 
+    2.添加 .bowerrc 文件 => { "directory":"./public/lib" }  把第三方项目依赖放在 public/lib 目录下面
+
+    xxxxxxxxxxxxx
+`
+
