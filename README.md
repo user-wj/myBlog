@@ -138,4 +138,9 @@ npm install jquery@3.5.1 --save
             <script type="text/javascript" charset="utf-8" src="/javascripts/bootstrap.js"></script>
 `
 
-# 
+# 增加表单
+`
+    在注册登录页面增加表单
+    bootstrap  找到组建 => 表单
+    
+`
