@@ -3,7 +3,26 @@
 
 
 
-<p>Welcome to <%= title %></p>
+<div class="container">
+    <form action="/articles/add" method="post" enctype="x-www-form-urlencoded">
+        <!-- 用户名 -->
+        <div class="form-group row">
+            <label for="title" class="col-sm-2 control-label">标题</label>
+            <div class="col-sm-6">
+                <input type="title" class="form-control" id="title" name="title" placeholder="请输入标题">
+            </div>
+        </div>
+        <!-- 密码 -->
+        <div class="form-group row">
+            <label for="content" class="col-sm-2 control-label">内容</label>
+            <div class="col-sm-6">
+                <textarea name="content" id="content" cols="56" rows="10" class="form-control" placeholder="请输入正文"></textarea>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">发布</button>
+    </form>
+</div>
+
 
 
 <%- include ../include/footer.html %>

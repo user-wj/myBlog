@@ -28,7 +28,8 @@ router.post("/reg",function(req,res,next){
 
 // => get:users/login 
 router.get("/login",function(req,res,next){
-  res.render("user/login.html",{title:"这是登录的页面"})
+  res.render("user/login.html",{title:"这是登录的页面"});
+  // 这里的话是要去操作数据库mongdb的 
 })
 
 // => poost:users/login 

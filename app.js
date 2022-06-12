@@ -15,12 +15,14 @@ var userArticles = require("./routes/articles")
 
 var app = express();
 
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views')); // 设置视图目录 [当前项目下的 views 目录]
 app.set('view engine', 'ejs');                   // 设置视图引擎  为 html 的后缀名
 app.engine("html",require("ejs").__express);     // ejs引擎认识 html的后缀名文件
 
 // 没有处理 favicon 的处理
+
 
 // 日志中间件
 app.use(logger('dev'));
@@ -30,6 +32,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());// req.cokies res.cookie() 函数
 app.use(express.static(path.join(__dirname, 'public'))); // 静态文件目录 [css,js] 
+
 
 // 路由的分发
 app.use('/', indexRouter);
@@ -49,6 +52,7 @@ app.use(function(req, res, next) {
   // next(value)里面有值的执行下一个错误中间件 app.use(function(err,req,res,next) =>{}) 这样的中间件
   next(err);
 });
+
 
 // error handler 四个参数的中间件是错误处理中间件
 app.use(function(err, req, res, next) {
