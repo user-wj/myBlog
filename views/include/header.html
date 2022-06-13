@@ -20,18 +20,27 @@
                 <li class="nav-item active">
                     <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/users/login">登录</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/users/reg">注册</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/articles/add">发表文章</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/users/logout">退出</a>
-                </li>
+                <%
+                    if(!user){
+                %>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/users/login">登录</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/users/reg">注册</a>
+                    </li>
+                <% 
+                    }else{
+                %>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/articles/add">发表文章</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/users/logout">退出</a>
+                    </li>
+                <%
+                    }
+                %>
             </ul>
             <form class="form-inline my-2 my-lg-0">
                 <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
@@ -39,3 +48,32 @@
             </form>
         </div>
     </nav>
+
+    <!-- 显示信息 -->
+    <% 
+        if(success){
+    %>
+            <div class="form-group row" style="z-index:10">
+                <div class="alert alert-success alert-dismissible col-sm-3 offset-md-3" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <strong>Success!</strong><%= success %>.
+                </div>
+            </div>
+    <%
+        }
+    %>
+    <%
+        if(error){
+    %>
+            <div class="form-group row" style="z-index:10">
+                <div class="alert alert-danger alert-dismissible col-sm-3 offset-md-3" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <strong>Error!</strong><%= error %>.
+                </div>
+            </div>
+
+    <%
+        }
+    %>

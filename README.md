@@ -1,3 +1,26 @@
+# 项目用到的技术
+`
+        用到技术:
+            npm
+
+            express 
+            connect-mongo
+            express-session
+            connect-flash 
+            multer  图片文件上传 
+            sha1 
+
+            ejs 
+            jquery
+            bootstrap 
+
+            mongodb 
+            mongoose 
+
+            git
+`
+
+
 # 安装生成器
 
 `npm install express-generator -g`
@@ -142,5 +165,86 @@ npm install jquery@3.5.1 --save
 `
     在注册登录页面增加表单
     bootstrap  找到组建 => 表单
-    
+`
+
+# 在遇见不知道的模块或者是文档的API的接口改变记得看源码包的文档
+
+# 实现权限的控制
+`
+    在 header 里面配合 session 进行关联
+                ->  有 取值 取到的 req.session = sessionId
+    sessionId
+                ->  无 创建一session对象 => req.session={}   { sessionId:req.session=>{}  }  => 最后返回的是 sessionID=jdghggvc155gg 
+    实现权限的控制是根据 session 的会话机制来实现的
+`
+
+# 全局变量都需要用到user变量使用中间件 
+`
+    中间件是有顺序的:=> cookie => session => app.use(function(req.session))
+    使用中间件实现权限控制:
+                        app.use(function(req,res,next){
+                            req.user = req.session["user"];
+                        })
+`
+# session 存储在mongodb里面
+`
+    在指定 db 下的 sessions[collection]里面
+`
+# connect-flash 中间件
+`
+    解决 sessions 在设置上就不销毁的问题=>因为session存储在服务器端数据库上 设置上了就永远存在
+    npm install connect-flash --save
+    app.use(flash()) => 就是向req注入一个方法 req.flash = function(){}
+    这个flash方法可以在 connect-mongo 中间件下面在数据库中这样的存储
+    req.session.flash = {"xxx":[val1,val2...]}
+    每次从数据库里面取值之后，当前被取的值和会从数据库中删除
+`
+
+# 创建一个新的文章模型
+`
+    title
+    content 
+    data 
+    user:=>关联到用户的模型 => 根据登录人来去 ObjectId 
+`
+# mongo的查询方法
+`
+    在没有出现错误的时候 在查找不到数据的情况下返回的是空 数组 data []
+    取值是要对 data 进行判断 
+`
+
+# 首页界面的处理
+`
+    首页展示的是全部的文章内容
+    展示的布局 bootstrap 里面 组建(components)media object  
+    如果点击个人头像进入到个人中心的博客展示页面
+    Model.findOne({}).exec(function(err,data)) => {}
+    Model.find({}).exec(function(err,data))  => [{}...]
+`
+
+# 权限控制两种方法
+`
+    会话进行实现的是  登录权限的控制
+    白名单是实现的是  路由权限的控制(直接在浏览器输入地址)
+                    一种是已经登录过的: 登录了不让他访问 登录 注册 页面
+                    一种是没有登录过的：只能访问 登录 注册 首页
+`
+
+# 图片文件的上传
+`
+    npm install multer --save      处理文件上传
+    multer模块额度作用  => 中间件 图片上传到文件夹 => 增加一个 req.file 的对象 里面保存的文件对象信息
+    修改form 表单格式为 enctype="multipart/form-data" 的格式
+    这个中间件只是在 处理有图片上传的时候才会失生效
+    不知道怎么使用 源码包 直接看文档 README.md 
+
+    问题: multer 路径的问题 => 必须是 ./ 开头
+`
+
+# 文章单页的运用
+`
+    路由: /articles/single/:articleId 
+    查询单个: data||doc={}||undefined    查询多个 data||doc = [{},{}...] || [  ]
+    单篇文章页面
+    bootstrap => [panel 画板]mspaint 
 `

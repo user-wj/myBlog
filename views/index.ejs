@@ -1,9 +1,27 @@
 <!-- 导航头部 -->
 <%- include ../views/include/header.html %>
 
-
-  <p>Welcome to <%= title %></p>
-
+<%
+  articles.forEach((item,index)=>{
+%>
+  <div class="media form-group row" style="overflow:hidden;text-overflow:ellipsis;white-space:no-wrap;height:90px;">
+    <div class="media-left col-sm-1 offset-sm-1">
+      <a href="/articles/all/<%= item.user._id %>">
+        <img class="media-object" src="<%= item.user.avatar %>" width="90" height="90" alt="...">
+      </a>
+    </div>
+    <div class="media-body col-sm-9 ">
+      <h4 class="media-heading">
+        <a href="/articles/single/<%= item._id %>">
+          <%= item.title %>
+        </a>
+      </h4>
+      <%= item.content %>
+    </div>
+  </div>
+<%
+  })
+%>
 
 <%- include ../views/include/footer.html %>
 <!-- 尾部 -->

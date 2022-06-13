@@ -4,7 +4,7 @@
 
 
 <div class="container">
-    <form action="/articles/add" method="post" enctype="x-www-form-urlencoded">
+    <form action="/articles/add" method="post" enctype="multipart/form-data">
         <!-- 用户名 -->
         <div class="form-group row">
             <label for="title" class="col-sm-2 control-label">标题</label>
@@ -18,6 +18,13 @@
             <div class="col-sm-6">
                 <textarea name="content" id="content" cols="56" rows="10" class="form-control" placeholder="请输入正文"></textarea>
             </div>
+        </div>
+
+        <div class="form-group row">
+                <label for="img" class="control-label col-sm-2">图片</label>
+                <div class="col-sm-6">
+                    <input type="file" class="form-control" id="img" name="img">
+                </div>
         </div>
         <button type="submit" class="btn btn-primary">发布</button>
     </form>

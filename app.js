@@ -3,7 +3,10 @@ var express = require('express');
 var path = require('path'); // 路径模块
 var cookieParser = require('cookie-parser'); // 处理cookie  req.cookies  res.cookie()
 var logger = require('morgan');// 日志
+var session = require("express-session");
+var MongoStore = require("connect-mongo");
 var fs = require("fs");
+var flash = require("connect-flash")
 /* 
   var router = express.Router();
   router.get("/index",function(){ ... })
@@ -12,6 +15,9 @@ var fs = require("fs");
 var indexRouter = require('./routes/index'); // 根路由
 var usersRouter = require('./routes/users'); // 用户路由
 var userArticles = require("./routes/articles")
+
+var whiteUrl = require("./middleware/urlControl");
+
 
 var app = express();
 
@@ -30,8 +36,43 @@ app.use(logger('dev'));
 app.use(express.json());
 // 解析post form 请求的编码格式的  处理请求体的
 app.use(express.urlencoded({ extended: false }));
+// session 的
 app.use(cookieParser());// req.cokies res.cookie() 函数
+app.use(session({
+  // session 是依赖 cookie 的所以的话  需要放在 cookieparse 的下面
+  resave:true,
+  secret: 'wjblog',
+  store: MongoStore.create({ mongoUrl: 'mongodb://localhost/blog' }),
+  saveUninitialized:true,
+}));
+/* 
+  req.flash()
+  这个中间件一定要在连接 connect-mongo 中间件下使用 因为他也是要存储到数据库里面
+*/
+app.use(flash()); 
+
+
 app.use(express.static(path.join(__dirname, 'public'))); // 静态文件目录 [css,js] 
+
+app.use(whiteUrl());
+
+// 通过 session 控制页面展示内容  
+app.use(function(req,res,next){
+  // 可能为 undefined => 在render 的时候会自动找 locals 对象 => res.locals = {user:xx,key:xx}
+  // render(view.html",{}=res.locals{})  本次请求到来的一系列的对象
+  // res.locals.user = req.session["user"];
+  // => flash => sessionId 是一样的 <={"xxx":[val1,val2]} 每一次取值 里面设置的值就会从数据库里面删除
+  res.locals.user = req.session["user"];
+  // res.locals.success = req.session["success"];  => flash 是去到空数组 []=> ""||false
+  res.locals.error = req.flash("error").toString()||false;
+  // console.log("res.locals.error:",res.locals.error.toString())
+  // res.locals.error = req.session["error"];
+  res.locals.success = req.flash("success").toString() ||false;
+  // console.log("res.locals.success:", res.locals.success)
+  // console.log("req.path",req.path)
+  next();
+});
+
 
 
 // 路由的分发
@@ -52,7 +93,6 @@ app.use(function(req, res, next) {
   // next(value)里面有值的执行下一个错误中间件 app.use(function(err,req,res,next) =>{}) 这样的中间件
   next(err);
 });
-
 
 // error handler 四个参数的中间件是错误处理中间件
 app.use(function(err, req, res, next) {
